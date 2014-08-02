@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+
+<definitions name="SwitchServicio"
+    targetNamespace="urn:Switch"
+     xmlns:tns="urn:Switch"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+     xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+     xmlns="http://schemas.xmlsoap.org/wsdl/">
+
+  <message name="SwitchSetRequest">
+    <part name="status" type="xsd:boolean" />
+  </message>
+ 
+  <message name="SwitchSetResponse">
+    <part name="return" type="xsd:boolean" />
+  </message>
+
+  <message name="SwitchGetRequest">
+  </message>
+ 
+  <message name="SwitchGetResponse">
+    <part name="return" type="xsd:boolean" />
+  </message>
+
+  <portType name="SwitchPort">
+    <operation name="set">
+      <input message="tns:SwitchSetRequest" />
+      <output message="tns:SwitchSetResponse" />
+    </operation>
+    <operation name="get">
+      <input message="tns:SwitchGetRequest" />
+      <output message="tns:SwitchGetResponse" />
+    </operation>
+  </portType>
+ 
+  <binding name="SwitchBinding" type="tns:SwitchPort">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="set">
+        <soap:operation soapAction="urn:Switch#set" />
+        <input>
+          <soap:body use="encoded" namespace="urn:Switch"
+                     encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+        </input>
+        <output>
+          <soap:body use="encoded" namespace="urn:Switch"
+                     encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+        </output>
+    </operation>
+    <operation name="get">
+        <soap:operation soapAction="urn:Switch#get" />
+        <input>
+          <soap:body use="encoded" namespace="urn:Switch"
+                     encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />       
+        </input>
+        <output>
+          <soap:body use="encoded" namespace="urn:Switch"
+                     encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />       
+        </output>
+    </operation>
+  </binding>
+ 
+  <service name="SwitchServicio">
+    <port name="SwitchPort" binding="tns:SwitchBinding">
+      <soap:address location="http://localhost/php-arduino/ws/switch.php" />
+    </port>
+  </service>
+	
+</definitions>

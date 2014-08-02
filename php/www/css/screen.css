@@ -1,0 +1,35 @@
+/*
+  Federico Pfaffendorf
+  yo@federicopfaffendorf.com.ar
+  (t) @fpfaffendorf
+*/
+
+body
+{
+  background-color: #313131;
+}
+
+div
+{
+  width: 113px;
+  height: 115px;
+  margin: 0px auto;
+  margin-top: 70px;
+  text-align: center;
+  font-size: 8px;
+  font-weight: bold;
+  font-family: verdana;
+  color: gray;
+}
+
+img
+{
+  cursor: pointer;
+  clear: both;
+  margin-bottom: 20px;
+}
+
+div.preload
+{
+  display: none;
+}
