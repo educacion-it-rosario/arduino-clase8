@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<!--
+
+    Autor:
+        Naranjo Manuel Francisco
+        naranjo.manuel@gmail.com
+        (t) @mnaranjo85
+
+    Basado en el trabajo de:
+        Federico Pfaffendorf
+        yo@federicopfaffendorf.com.ar
+        (t) @fpfaffendorf
+-->
+
+<!-- ininicializa el html -->
+<html>
+
+<!-- cabecera aca ponemos ciertas configuraciones -->
+<head>
+  <!-- titulo en el nombre del navegador -->
+  <title>Arduino Python</title>
+
+  <!--
+       hoja de estilos, permite separar la configuracion de la visualizacion,
+       de la disposicion logica de los elementos
+    -->
+  <link rel="stylesheet" href="./css/screen.css" type="text/css" media="screen"/>
+
+  <!-- codigo javascript de terceros -->
+  <script type="text/javascript" src="js/jquery-2.1.1.js"></script>
+
+  <!-- codigo en Javascript que permite hacer mas interactivo al sistema -->
+  <script type="text/javascript" src="js/codigo.js"></script>
+</head>
+
+<!-- cuerpo del html, es lo que muestra el navegador -->
+<body>
+
+  <!-- division donde metemos todo el contenido -->
+  <div>
+    <img src="./imgs/vacio.png"
+         class="switch"
+         alt="Switch"
+         id="switch"
+         />
+    Python + Arduino <br/>
+    Todo es posible
+  </div>
+
+  <!-- division oculta para mejorar la carga de datos -->
+  <div class="preload">
+    <img src="./imgs/off.jpg" width="1" height="1" alt="preload" />
+    <img src="./imgs/on.jpg" width="1" height="1" alt="preload" />
+  </div>
+
+</body>
+</html>
