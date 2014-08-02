@@ -10,7 +10,14 @@ if (!extension_loaded("soap"))
 
 ini_set ("soap.wsdl_cache_enabled", "0");
 
-$server = new SoapServer ("./switch.wsdl");
+$server = new SoapServer ("switch.wsdl");
+/*
+    NULL,
+    array(
+        "http://" . $_SERVER["HTTP_HOST"] . "/ws/switch.php"
+    )
+);
+*/
 
 /*
   PRE: Recibe en la variable $status un booleano true o false
@@ -26,7 +33,7 @@ function set ($status){
   else
       $status = "false";
 
-  return file_put_contents ("./switch.status", $status, LOCK_EX);
+  return file_put_contents ("switch.status", $status, LOCK_EX);
 }
 
 /*
@@ -39,7 +46,7 @@ function set ($status){
 
 function get ()
 {
-    $status = file_get_contents ("./switch.status");
+    $status = file_get_contents ("switch.status");
 
     if ($status === "false")
         return (false);
@@ -49,6 +56,7 @@ function get ()
         return (null);
 
 }
+
 
 $server->AddFunction("set");
 $server->AddFunction("get");

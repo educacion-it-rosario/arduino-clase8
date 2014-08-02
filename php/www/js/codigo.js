@@ -1,52 +1,59 @@
+/*
+ * Variable global para llevar cuenta del estado del interruptor
+ */
 var switchStatus = false;
 
-function swtichClick(img) {
-    x = xmlHttp();
 
-    if (x != false) {
-        x.onreadystatechange = function ()  {
-            if ((x.readyState == 4) && (x.status == 200))  {
-                if (x.responseText.trim().toUpperCase() == "TRUE") {
-                    if (switchStatus) {
-                        img.src = "./imgs/off.jpg";
-                    }
-                    else {
-                        img.src = "./imgs/on.jpg";
-                    }
-                    switchStatus = !switchStatus;
-                }
+/*
+ * Funcion que via el web-service cambia el estado de la salida en funcion
+ * del interruptor mostrado.
+ */
+function switchClick(img) {
+    var data = {
+        status: !switchStatus,
+        r: Math.random(),
+    };
+
+    $.get("/ws-client/switch-set.php", data)
+        .done(
+            function( data ) {
+                console.debug(data);
             }
-        }
-
-        x.open ("GET", "./ws-client/switch-set.php?status=" + (!switchStatus) + "&r=" + Math.random(), true);
-        x.send (null);
-
-    }
-
+        );
 }
 
-window.onload = function () {
 
-    x = xmlHttp();
-    img = document.getElementById ("switch");
+/*
+ * Esta funcion va a ser llamada cuando hayan llegados datos del web
+ * service, y nosotros hayamos iniciado un GET al switch-get
+ */
+function switchGetOnData(data) {
+    // variable que usamos para controlar el pulsador mostrado en pantalla
+    var img;
 
-    if (x != false) {
+    // mostrar por consola el estado de la llamada
+    console.log("switchGetOnData", data);
 
-        x.onreadystatechange = function () {
-            if ((x.readyState == 4) && (x.status == 200)) {
-                if (x.responseText.trim().toUpperCase() == "TRUE") {
-                    img.src = "./imgs/on.jpg";
-                    switchStatus = true;
-                }
-                else
-                {
-                    img.src = "./imgs/off.jpg";
-                    switchStatus = false;
-                }
-            }
-        }
+    // seleccionar del html aquel elemeno que tenga el id "switch"
+    img = $("#switch");
 
-        x.open ("GET", "./ws-client/switch-get.php?r=" + Math.random(), true);
-        x.send (null);
+    // sino encuentra el switch entonces no podemos hacer nada mas
+    if (img.length==0) {
+        // avisemos al desarrollador que algo esta mal!
+        console.error("No encuentro switch en el DOM")
+        return;
     }
 }
+
+/*
+ * Funcion que se va a llamar cuando el navegador ya haya terminado de
+ * descargar del servidor todos los componentes y este listo para nuestra
+ * aplicacion
+ */
+function onReady() {
+    // leer el estado actual del switch asi nos sincronizamos
+    $.get("/ws-client/switch-get.php").done(switchGetOnData);
+}
+
+
+$().ready(onReady);

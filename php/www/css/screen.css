@@ -33,3 +33,9 @@ div.preload
 {
   display: none;
 }
+
+img.switch
+{
+  width: 113px;
+  height: 115px;
+}
