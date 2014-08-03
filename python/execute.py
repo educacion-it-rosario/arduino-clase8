@@ -2,15 +2,18 @@
 
 import BaseHTTPServer
 import CGIHTTPServer
-import cgitb
+import os
+import sys
 
-# activar reporte de errores
-cgitb.enable()
+def main():
+    handler = CGIHTTPServer.CGIHTTPRequestHandler
+    handler.cgi_directories = ['/cgi-bin']
 
-server = BaseHTTPServer.HTTPServer
-handler = CGIHTTPServer.CGIHTTPRequestHandler
-server_addres= ("", 8001)
-handler.cgi_directories = ["/cgi-bin"]
+    if sys.argv[1:]:
+        os.chdir(sys.argv[1])
+        sys.argv.pop(1)
 
-httpd = server(server_addres, handler)
-httpd.serve_forever()
+    BaseHTTPServer.test(HandlerClass=handler)
+
+if __name__ == '__main__':
+    main()
