@@ -4,7 +4,7 @@
 	(t) @fpfaffendorf
 */
 
-const int ledPin = 2; // Pin al que esta relacionado el LED
+const int ledPin = 13; // Pin al que esta relacionado el LED
 int rxByte;
  
 void setup() {
@@ -29,6 +29,11 @@ void loop() {
     if (rxByte == 'L') // Si se encontro un byte que convertido a char es una L
     {
       digitalWrite(ledPin, LOW); // Pone en bajo el pin relacionado al LED
+    }
+    
+    if (rxByte == 'S') // si se envio una S
+    {
+      Serial.println(digitalRead(ledPin));
     }
   
   }
