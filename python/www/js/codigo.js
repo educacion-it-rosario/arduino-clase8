@@ -1,3 +1,16 @@
+//
+// Autor:
+//         Naranjo Manuel Francisco
+//         naranjo.manuel@gmail.com
+//         (t) @mnaranjo85
+//
+// Basado en el trabajo de:
+//         Federico Pfaffendorf
+//         yo@federicopfaffendorf.com.ar
+//         (t) @fpfaffendorf
+//
+
+
 /*
  * Variable global para llevar cuenta del estado del interruptor
  */
@@ -15,13 +28,16 @@ function random() {
  * del interruptor mostrado.
  */
 function switchClick(img) {
+    switchStatus = !switchStatus
+
     var data = {
-        status: !switchStatus,
+        nstatus: switchStatus ? 1 : 0,
         random: random(),
-        port: 13,
+        pin: 13,
+        action: 'set'
     };
 
-    $.get("/cgi-bin/switch-set.py", data)
+    $.get("/cgi-bin/switch.py", data)
         .done( switchGetOnData );
 }
 
@@ -72,10 +88,11 @@ function switchGetOnData(data) {
  */
 function onReady() {
     // leer el estado actual del switch asi nos sincronizamos
-    $.getJSON("/cgi-bin/switch-get.py",
+    $.getJSON("/cgi-bin/switch.py",
               {
-                  'random': random(),
-                  'port': 13
+                  random: random(),
+                  pin: 13,
+                  action: 'get'
               }
              ).done(switchGetOnData);
 
